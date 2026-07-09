@@ -4,9 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
-import { supabase } from '@/lib/supabase'; // Connecting to the backend
+import { supabase } from '@/lib/supabase';  
 
-// Fallback data in case the database is empty or still being set up
 const FALLBACK_PROJECTS = [
   {
     id: 1,
@@ -48,7 +47,7 @@ const FALLBACK_PROJECTS = [
 
 const CATEGORIES = ['All', 'CAD Design', 'PCB Design', 'Circuit Simulation', 'Community Project'];
 
-// --- UPGRADED SLIDESHOW COMPONENT (Now with Video Support) ---
+ 
 const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolean }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -73,7 +72,7 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
   if (!project || !project.images) return null;
 
   return (
-    <div className="group cursor-pointer border border-[#333] hover:border-[#C0C0C0] transition-all duration-500 bg-[#111] h-full flex flex-col">
+    <div className="relative z-0 group cursor-pointer border border-[#333] hover:border-[#C0C0C0] transition-all duration-500 bg-[#111] h-full flex flex-col hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_-15px_rgba(192,192,192,0.15)] hover:z-10">
 
       <div className="w-full h-64 md:h-72 relative overflow-hidden bg-[#0a0a0a] shrink-0">
 
@@ -179,7 +178,7 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
-  // Use DB projects if available, otherwise use placeholders
+  
   const activeProjects = dbProjects.length > 0 ? dbProjects : FALLBACK_PROJECTS;
 
   const filteredProjects = filter === 'All'
