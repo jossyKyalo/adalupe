@@ -25,7 +25,7 @@ export default function Contact() {
     if (result?.error) {
       setStatus({ message: result.error, type: 'error' });
     } else {
-      setStatus({ message: 'Transmission successful. We will respond shortly.', type: 'success' });
+      setStatus({ message: 'Message sent successfully. We will respond shortly.', type: 'success' });
       form.reset();
     }
 
@@ -75,24 +75,22 @@ export default function Contact() {
         </div>
       </nav>
 
-
       <section className="w-full py-20 flex flex-col items-center justify-center border-b border-[#333] bg-[#0d0d0d] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
-        <h1 className="text-3xl md:text-5xl font-bold tracking-[.2em] uppercase text-[#C0C0C0] mb-4 relative z-10">Initiate Contact</h1>
+        <h1 className="text-3xl md:text-5xl font-bold tracking-[.2em] uppercase text-[#C0C0C0] mb-4 relative z-10">Get In Touch</h1>
         <div className="h-[2px] w-24 bg-[#C0C0C0] mb-6 relative z-10 shadow-[0_0_10px_rgba(192,192,192,0.5)]"></div>
-        <p className="text-[11px] tracking-widest text-[#888] uppercase relative z-10">Consultation • Collaboration • Deployment</p>
+        <p className="text-[11px] tracking-widest text-[#888] uppercase relative z-10">Let&apos;s Discuss Your Next Project</p>
       </section>
 
       <section className="flex-1 w-full max-w-6xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
 
-
           <div className="flex flex-col justify-center border-l-2 border-[#333] pl-8 py-4 relative">
             <div className="absolute top-0 -left-[2px] w-4 h-[2px] bg-[#C0C0C0]"></div>
             <div className="absolute bottom-0 -left-[2px] w-4 h-[2px] bg-[#C0C0C0]"></div>
 
-            <h2 className="text-[10px] tracking-[.3em] font-mono text-[#888] mb-4">01 // THE COORDINATES</h2>
+            <h2 className="text-[10px] tracking-[.3em] font-mono text-[#888] mb-4">CONTACT DETAILS</h2>
             <h3 className="text-2xl text-[#ddd] tracking-widest uppercase mb-10">Direct Lines</h3>
 
             <div className="space-y-8">
@@ -101,7 +99,7 @@ export default function Contact() {
                   <Mail strokeWidth={1} className="w-6 h-6 text-[#888] group-hover:text-[#C0C0C0] transition-colors" />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[#666] mb-1">Electronic Mail</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[#666] mb-1">Email</p>
                   <p className="text-[14px] text-[#ccc] group-hover:text-white transition-colors tracking-wider">bennyES1318@gmail.com</p>
                 </div>
               </div>
@@ -111,7 +109,7 @@ export default function Contact() {
                   <Phone strokeWidth={1} className="w-6 h-6 text-[#888] group-hover:text-[#C0C0C0] transition-colors" />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[#666] mb-1">Voice Communication</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[#666] mb-1">Phone</p>
                   <p className="text-[14px] text-[#ccc] group-hover:text-white transition-colors tracking-wider">+254 738 129 916</p>
                 </div>
               </div>
@@ -121,7 +119,7 @@ export default function Contact() {
                   <MapPin strokeWidth={1} className="w-6 h-6 text-[#888] group-hover:text-[#C0C0C0] transition-colors" />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[#666] mb-1">Headquarters</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[#666] mb-1">Location</p>
                   <p className="text-[14px] text-[#ccc] group-hover:text-white transition-colors tracking-wider">Nairobi, Kenya<br /><span className="text-[11px] text-[#888]">Operating Globally</span></p>
                 </div>
               </div>
@@ -129,29 +127,29 @@ export default function Contact() {
           </div>
 
           <div className="bg-[#111] border border-[#222] p-8 md:p-10 relative group hover:border-[#444] transition-colors duration-500">
-            <h2 className="text-[10px] tracking-[.3em] font-mono text-[#888] mb-4">02 // TRANSMISSION</h2>
+            <h2 className="text-[10px] tracking-[.3em] font-mono text-[#888] mb-4">INQUIRIES</h2>
             <h3 className="text-xl text-[#ddd] tracking-widest uppercase mb-8">Send a Message</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
-                  <label htmlFor="name" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Identification</label>
+                  <label htmlFor="name" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Name</label>
                   <input required id="name" name="name" type="text" placeholder="Your Name" className="bg-[#0a0a0a] border border-[#333] p-3 text-[13px] text-white focus:border-[#C0C0C0] focus:outline-none transition-colors" />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="email" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Return Address</label>
+                  <label htmlFor="email" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Email</label>
                   <input required id="email" name="email" type="email" placeholder="Email Address" className="bg-[#0a0a0a] border border-[#333] p-3 text-[13px] text-white focus:border-[#C0C0C0] focus:outline-none transition-colors" />
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="subject" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Subject Parameter</label>
+                <label htmlFor="subject" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Subject</label>
                 <input required id="subject" name="subject" type="text" placeholder="Project Type or Inquiry" className="bg-[#0a0a0a] border border-[#333] p-3 text-[13px] text-white focus:border-[#C0C0C0] focus:outline-none transition-colors" />
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="payload" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Data Payload</label>
+                <label htmlFor="payload" className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Message</label>
                 <textarea required id="payload" name="payload" rows={5} placeholder="Describe your engineering or design requirements..." className="bg-[#0a0a0a] border border-[#333] p-3 text-[13px] text-white focus:border-[#C0C0C0] focus:outline-none transition-colors resize-none"></textarea>
               </div>
 
@@ -169,12 +167,12 @@ export default function Contact() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Transmitting...</span>
+                    <span>Sending...</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Transmit Request</span>
+                    <span>Send Message</span>
                   </>
                 )}
               </button>
@@ -184,55 +182,6 @@ export default function Contact() {
         </div>
       </section>
 
-
-      <footer className="w-full grid grid-cols-1 md:grid-cols-3 border-t border-[#888] bg-[#888] gap-[1px] mt-auto">
-        <div className="flex flex-col gap-4 p-8 bg-[#141414]">
-          <span className="text-[10px] tracking-[.22em] uppercase text-[#555] font-bold">Socials</span>
-          {[
-            { icon: 'M', label: 'Gmail', href: 'mailto:bennyES1318@gmail.com' },
-            { icon: 'W', label: 'WhatsApp', href: 'https://wa.me/254738129916' },
-            { icon: 'in', label: 'LinkedIn', href: 'https://linkedin.com/in/benard-akungu-ogolla' },
-          ].map(({ icon, label, href }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative z-50 flex items-center gap-4 text-[#777] text-[13px] cursor-pointer hover:text-[#C0C0C0] transition-colors group"
-            >
-              <div className="w-[36px] h-[36px] border border-[#333] group-hover:border-[#C0C0C0] rounded flex items-center justify-center text-[12px] text-[#C0C0C0] group-hover:text-[#000] group-hover:bg-[#C0C0C0] font-bold transition-all duration-300">
-                {icon}
-              </div>
-              <span className="tracking-wider">{label}</span>
-            </a>
-          ))}
-        </div>
-
-        <div className="flex flex-col items-center justify-start py-10 md:pt-0 md:pb-6 bg-[#141414]">
-          <div className="relative md:-top-12 flex items-center justify-center mb-4 md:mb-0 w-[130px] h-[130px]">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full animate-[spin_15s_linear_infinite]">
-              <path id="founderCircle" d="M 50, 50 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0" fill="transparent" />
-              <text>
-                <textPath href="#founderCircle" startOffset="0%" className="text-[9.5px] tracking-[0.22em] uppercase fill-[#888] font-bold">
-                  FOUNDER • BENARD AKUNGU OGOLLA •
-                </textPath>
-              </text>
-            </svg>
-            <div className="relative w-20 h-20 rounded-full border-[2px] border-[#C0C0C0] bg-[#222] overflow-hidden shadow-[0_0_20px_rgba(192,192,192,.1)] z-10">
-              <Image src="/founder-img.png" alt="Founder" fill style={{ objectFit: 'cover' }} />
-            </div>
-          </div>
-          <p className="text-[11px] tracking-[.2em] uppercase text-[#C0C0C0] md:-mt-2 text-center font-bold">Adalupe Design</p>
-          <p className="text-[9px] text-[#555] tracking-widest mt-2 text-center uppercase">Mechatronic Engineer</p>
-        </div>
-
-        <div className="relative flex flex-col justify-center gap-4 p-8 bg-[#141414]">
-          <span className="absolute top-4 left-6 text-[60px] leading-none text-[#2a2a2a] font-serif">&ldquo;</span>
-          <p className="text-[15px] italic text-[#888] leading-relaxed relative z-10 font-serif text-center px-4">Bro knows something about everything.</p>
-          <p className="text-[10px] tracking-[.15em] uppercase text-[#555] relative z-10 text-right mt-2">~ Benard Akungu Ogolla<br /></p>
-          <span className="absolute bottom-4 right-6 text-[60px] leading-none text-[#2a2a2a] font-serif">&rdquo;</span>
-        </div>
-      </footer>
     </main>
   );
 }

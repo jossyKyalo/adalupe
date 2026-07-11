@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import WhatsAppButton from "./components/WhatsAppButton";
+import WhatsAppButton from "./components/WhatsAppButton"; 
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
- 
 export const metadata: Metadata = {
   title: "Adalupe Design Group",
   description: "Precision Engineering & Design",
@@ -30,9 +30,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-       
+      <body className="min-h-full flex flex-col"> 
+        <main className="flex-1 flex flex-col">
+          {children}
+        </main>
+         
+        <Footer />
+         
         <WhatsAppButton />
       </body>
     </html>

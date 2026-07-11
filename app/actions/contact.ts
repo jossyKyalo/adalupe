@@ -1,11 +1,10 @@
-// app/actions/contact.ts
+ 
 'use server';
 
 import { supabase } from '@/lib/supabase';
 import nodemailer from 'nodemailer';
 
-export async function submitContactForm(formData: FormData) {
-  // 1. Extract data from the form
+export async function submitContactForm(formData: FormData) { 
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
   const subject = formData.get('subject') as string;
@@ -14,34 +13,30 @@ export async function submitContactForm(formData: FormData) {
   if (!name || !email || !payload) {
     return { error: 'Missing required parameters.' };
   }
-
-  // 2. Insert into Supabase (The permanent log)
+ 
   const { error: dbError } = await supabase
     .from('messages')
     .insert([{ name, email, subject, payload }]);
 
   if (dbError) {
-    console.error('Supabase Error:', dbError);
-    // We log the error but proceed to attempt the email anyway so Benard still gets alerted
+    console.error('Supabase Error:', dbError); 
   }
-
-  // 3. Configure the SMTP Transporter
+ 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
+    secure: process.env.SMTP_PORT === '465',  
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
   });
-
-  // 4. Send the Email
+ 
   try {
     await transporter.sendMail({
       from: `"Adalupe Interface" <${process.env.SMTP_USER}>`,
-      to: process.env.RECEIVER_EMAIL, // Sends directly to Benard
-      replyTo: email, // If Benard hits "Reply", it goes to the user
+      to: process.env.RECEIVER_EMAIL,  
+      replyTo: email,  
       subject: `New Transmission: ${subject} - from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${payload}`,
       html: `

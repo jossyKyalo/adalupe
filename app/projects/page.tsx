@@ -76,7 +76,7 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
 
       <div className="w-full h-64 md:h-72 relative overflow-hidden bg-[#0a0a0a] shrink-0">
 
-        {/* Smart Media Renderer (Images + Videos) */}
+        
         {project.images.map((mediaUrl: string, idx: number) => {
           const isVideo = mediaUrl.toLowerCase().endsWith('.mp4') || mediaUrl.toLowerCase().endsWith('.webm');
 
@@ -103,9 +103,8 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
               )}
             </div>
           );
-        })}
+        })} 
 
-        {/* Slideshow Controls */}
         {project.images.length > 1 && (
           <>
             <button onClick={prevSlide} className={`absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/60 text-white transition-opacity hover:bg-black/90 border border-[#444] hover:border-[#C0C0C0] z-20 ${isAutoPlay ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
@@ -117,12 +116,11 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
           </>
         )}
 
-        {/* Category Overlay Tag */}
+       
         <div className="absolute top-4 right-4 bg-[#1a1c1e]/90 border border-[#C0C0C0]/50 px-3 py-1 backdrop-blur-sm z-20">
           <span className="text-[8px] tracking-widest text-[#C0C0C0] uppercase">{project.category}</span>
         </div>
-
-        {/* Slideshow Dots */}
+ 
         {project.images.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
             {project.images.map((_: any, idx: number) => (
@@ -134,8 +132,7 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
           </div>
         )}
       </div>
-
-      {/* Project Info */}
+ 
       <div className="p-6 flex-1 flex flex-col justify-center">
         <h3 className="text-xl md:text-2xl text-[#ddd] tracking-wide group-hover:text-white transition-colors">{project.name}</h3>
         <div className="w-12 h-[1px] bg-[#444] group-hover:bg-[#C0C0C0] my-4 transition-colors duration-500"></div>
@@ -150,12 +147,11 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
 export default function Projects() {
   const pathname = usePathname();
   const [filter, setFilter] = useState('All');
-
-  // Database States
+ 
   const [dbProjects, setDbProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch live projects from Supabase on mount
+  
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -187,8 +183,7 @@ export default function Projects() {
 
   return (
     <main className="min-h-screen flex flex-col font-sans bg-[#1a1c1e] text-[#ccc] overflow-x-hidden">
-
-      {/* NAV */}
+ 
       <nav className="w-full h-[52px] border-b border-[#888] relative flex items-center bg-[#1a1c1e] z-30 shadow-xl">
         <div className="absolute left-1/2 -top-2 -translate-x-1/2 w-16 h-16 rounded-full border-[2px] border-[#C0C0C0] bg-[#222] overflow-hidden z-20 shadow-[0_0_15px_rgba(192,192,192,.2)]">
           <Image src="/logo.png" alt="Logo" fill style={{ objectFit: 'cover' }} />
@@ -228,15 +223,13 @@ export default function Projects() {
           </div>
         </div>
       </nav>
-
-      {/* PAGE HEADER */}
+ 
       <section className="w-full py-16 flex flex-col items-center justify-center border-b border-[#333] bg-[#0d0d0d]">
         <h1 className="text-3xl md:text-5xl font-bold tracking-[.2em] uppercase text-[#C0C0C0] mb-4">Portfolio</h1>
         <div className="h-[2px] w-24 bg-[#C0C0C0] mb-6 shadow-[0_0_10px_rgba(192,192,192,0.5)]"></div>
         <p className="text-[11px] tracking-widest text-[#888] uppercase">Where Engineering Meets Design</p>
       </section>
-
-      {/* FILTER BAR */}
+ 
       <section className="w-full py-6 flex justify-center px-4 bg-[#141414] border-b border-[#222]">
         <div className="flex flex-wrap justify-center gap-2 md:gap-4">
           {CATEGORIES.map(category => (
@@ -253,23 +246,20 @@ export default function Projects() {
           ))}
         </div>
       </section>
-
-      {/* PROJECTS DISPLAY GRID OR SLIDER */}
+ 
       <section className="flex-1 w-full max-w-6xl mx-auto px-6 py-12">
         {isLoading ? (
           <div className="w-full flex justify-center items-center py-20 text-[#666]">
             <Loader2 className="w-8 h-8 animate-spin mr-3" />
             <span className="text-[11px] tracking-widest uppercase">Connecting to Database...</span>
           </div>
-        ) : filter === 'All' ? (
-          /* ALL VIEW: Standard Grid Layout with Auto-Playing Image Slideshows */
+        ) : filter === 'All' ? ( 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={project.id || index} project={project} isAutoPlay={true} />
             ))}
           </div>
-        ) : (
-          /* SUBSECTION VIEW: Horizontal Swiping Project Slider with Manual Image Controls */
+        ) : ( 
           <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project, index) => (
@@ -286,47 +276,7 @@ export default function Projects() {
         )}
       </section>
 
-      {/* FOOTER */}
-      <footer className="w-full grid grid-cols-1 md:grid-cols-3 border-t border-[#888] bg-[#888] gap-[1px] mt-auto">
-        <div className="flex flex-col gap-4 p-8 bg-[#141414]">
-          <span className="text-[10px] tracking-[.22em] uppercase text-[#555] font-bold">Socials</span>
-          {[
-            { icon: 'M', label: 'Gmail' },
-            { icon: 'W', label: 'WhatsApp' },
-            { icon: 'in', label: 'LinkedIn' },
-          ].map(({ icon, label }) => (
-            <div key={label} className="flex items-center gap-4 text-[#777] text-[13px] cursor-pointer hover:text-[#C0C0C0] transition-colors group">
-              <div className="w-[36px] h-[36px] border border-[#333] group-hover:border-[#888] rounded flex items-center justify-center text-[12px] text-[#C0C0C0] font-bold transition-colors">{icon}</div>
-              <span className="tracking-wider">{label}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex flex-col items-center justify-start py-10 md:pt-0 md:pb-6 bg-[#141414]">
-          <div className="relative md:-top-12 flex items-center justify-center mb-4 md:mb-0 w-[130px] h-[130px]">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full animate-[spin_15s_linear_infinite]">
-              <path id="founderCircle" d="M 50, 50 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0" fill="transparent" />
-              <text>
-                <textPath href="#founderCircle" startOffset="0%" className="text-[9.5px] tracking-[0.22em] uppercase fill-[#888] font-bold">
-                  FOUNDER • BENARD AKUNGU OGOLLA •
-                </textPath>
-              </text>
-            </svg>
-            <div className="relative w-20 h-20 rounded-full border-[2px] border-[#C0C0C0] bg-[#222] overflow-hidden shadow-[0_0_20px_rgba(192,192,192,.1)] z-10">
-              <Image src="/founder-img.png" alt="Founder" fill style={{ objectFit: 'cover' }} />
-            </div>
-          </div>
-          <p className="text-[11px] tracking-[.2em] uppercase text-[#C0C0C0] md:-mt-2 text-center font-bold">Adalupe Design</p>
-          <p className="text-[9px] text-[#555] tracking-widest mt-2 text-center uppercase">Mechatronic Engineer</p>
-        </div>
-
-        <div className="relative flex flex-col justify-center gap-4 p-8 bg-[#141414]">
-          <span className="absolute top-4 left-6 text-[60px] leading-none text-[#2a2a2a] font-serif">&ldquo;</span>
-          <p className="text-[15px] italic text-[#888] leading-relaxed relative z-10 font-serif text-center px-4">Bro knows something about everything.</p>
-          <p className="text-[10px] tracking-[.15em] uppercase text-[#555] relative z-10 text-right mt-2">~ Benard Akungu Ogolla<br /></p>
-          <span className="absolute bottom-4 right-6 text-[60px] leading-none text-[#2a2a2a] font-serif">&rdquo;</span>
-        </div>
-      </footer>
+        
     </main>
   );
 }
