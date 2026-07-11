@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
-// We import the Supabase client directly into the frontend now
+import { Loader2 } from 'lucide-react'; 
 import { supabase } from '@/lib/supabase'; 
 
 export default function AdminUpload() {
@@ -9,15 +8,13 @@ export default function AdminUpload() {
   const [status, setStatus] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    // 1. Capture the form reference immediately!
+    e.preventDefault(); 
+
     const form = e.currentTarget;
     
     setIsSubmitting(true);
     setStatus('Initializing secure upload protocol...');
-
-    // 2. Use the captured form to get the data
+ 
     const formData = new FormData(form);
     const name = formData.get('name') as string;
     const category = formData.get('category') as string;
@@ -31,8 +28,7 @@ export default function AdminUpload() {
 
     const mediaUrls: string[] = [];
 
-    try {
-      // Upload each file DIRECTLY to Supabase Storage
+    try { 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         setStatus(`Uploading file ${i + 1} of ${files.length} (${(file.size / (1024 * 1024)).toFixed(2)} MB)...`);
@@ -56,8 +52,7 @@ export default function AdminUpload() {
       }
 
       setStatus('Files secured. Writing to database...');
-
-      // Save to Database
+ 
       const { error: dbError } = await supabase
         .from('projects')
         .insert([{ name, category, images: mediaUrls }]); 
@@ -65,8 +60,7 @@ export default function AdminUpload() {
       if (dbError) throw dbError;
 
       setStatus('Success! Project deployed to portfolio.');
-      
-      // 3. Use the captured reference to reset the form!
+       
       form.reset();
 
     } catch (error: any) {
@@ -79,7 +73,7 @@ export default function AdminUpload() {
 
   return (
     <main className="min-h-screen bg-[#111] text-[#ccc] p-10 font-sans flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background Grid */}
+     
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
       
       <div className="w-full max-w-lg border border-[#333] bg-[#141414] p-8 shadow-2xl relative z-10">
@@ -107,7 +101,7 @@ export default function AdminUpload() {
           <div className="flex flex-col border border-[#333] p-4 bg-[#0a0a0a]">
             <label className="text-[9px] tracking-widest uppercase text-[#C0C0C0] mb-2 font-bold">Media Payload (Images & .MP4 Videos)</label>
             <p className="text-[10px] text-[#666] mb-4">Hold CTRL/CMD to select multiple files. Videos must be under 30MB.</p>
-            {/* Accept videos as well as images now! */}
+            
             <input required name="media" type="file" multiple accept="image/*,video/mp4,video/webm" className="text-[11px] text-[#888] file:mr-4 file:py-2 file:px-4 file:border-0 file:text-[10px] file:tracking-widest file:uppercase file:bg-[#333] file:text-[#ccc] hover:file:bg-[#C0C0C0] hover:file:text-black transition-colors" />
           </div>
 
