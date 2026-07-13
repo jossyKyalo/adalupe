@@ -133,11 +133,12 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
         )}
       </div>
  
+       
       <div className="p-6 flex-1 flex flex-col justify-center">
         <h3 className="text-xl md:text-2xl text-[#ddd] tracking-wide group-hover:text-white transition-colors">{project.name}</h3>
         <div className="w-12 h-[1px] bg-[#444] group-hover:bg-[#C0C0C0] my-4 transition-colors duration-500"></div>
-        <p className="text-[10px] text-[#666] tracking-widest uppercase">
-          {isAutoPlay ? `View Details // ${project.images.length} Media` : `Swipe To Explore // ${project.images.length} Media`}
+        <p className="text-[10px] text-[#666] tracking-widest uppercase group-hover:text-[#aaa] transition-colors">
+          {isAutoPlay ? 'View Details' : 'Swipe To Explore'}
         </p>
       </div>
     </div>

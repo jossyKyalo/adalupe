@@ -25,21 +25,21 @@ export default function Home() {
       }
 
       root.setThemes([am5themes_Animated.new(root)]);
- 
+
       let chart = root.container.children.push(am5map.MapChart.new(root, {
         panX: "rotateX",
         panY: "rotateY",
         projection: am5map.geoOrthographic(),
-        rotationX: -38,  
+        rotationX: -38,
         rotationY: 0,
- 
+
         zoomLevel: 1.0,
- 
+
         wheelY: "none",
         wheelX: "none",
         pinchZoom: false,
       }));
- 
+
       let isRotating = true;
 
       chart.seriesContainer.events.on("pointerdown", () => { isRotating = false; });
@@ -51,7 +51,7 @@ export default function Home() {
           chart.set("rotationX", (chart.get("rotationX") as number) - 0.1);
         }
       });
- 
+
       let backgroundSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {}));
       backgroundSeries.mapPolygons.template.setAll({
         fill: am5.color(0x0a0a0a),
@@ -59,7 +59,7 @@ export default function Home() {
         strokeOpacity: 0
       });
       backgroundSeries.data.push({ geometry: am5map.getGeoRectangle(90, 180, -90, -180) });
- 
+
       let polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
         geoJSON: am5geodata_worldLow
       }));
@@ -75,24 +75,24 @@ export default function Home() {
       polygonSeries.mapPolygons.template.states.create("hover", {
         fill: am5.color(0x4a5560)
       });
- 
+
       let pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {
         latitudeField: "lat",
         longitudeField: "lon"
       }));
- 
+
       pointSeries.bullets.push(function (root: any, series: any, dataItem: any) {
         let dataContext = dataItem.dataContext;
         let color = dataContext.color || am5.color(0xC0C0C0);
 
         let container = am5.Container.new(root, {});
- 
+
         let signal = am5.Circle.new(root, {
           radius: 3,
           fill: color,
           opacity: 0.7
         });
- 
+
         let dot = am5.Circle.new(root, {
           radius: 2.5,
           fill: am5.color(0xffffff),
@@ -100,7 +100,7 @@ export default function Home() {
           strokeWidth: 1,
           tooltipText: "{name}"
         });
- 
+
         signal.animate({
           key: "radius",
           to: 25,
@@ -108,7 +108,7 @@ export default function Home() {
           easing: am5.ease.out(am5.ease.cubic),
           loops: Infinity
         });
- 
+
         signal.animate({
           key: "opacity",
           to: 0,
@@ -124,7 +124,7 @@ export default function Home() {
           sprite: container
         });
       });
- 
+
       let data = [
         { "id": "KE", "name": "Kenya", color: am5.color(0xc09060), polygonTemplate: { fill: am5.color(0xc09060) } },
         { "id": "UG", "name": "Uganda", color: am5.color(0x7a9ec0), polygonTemplate: { fill: am5.color(0x7a9ec0) } },
@@ -133,7 +133,7 @@ export default function Home() {
         { "id": "BI", "name": "Burundi", color: am5.color(0xc07a9e), polygonTemplate: { fill: am5.color(0xc07a9e) } },
         { "id": "SS", "name": "South Sudan", color: am5.color(0x8899aa), polygonTemplate: { fill: am5.color(0x8899aa) } },
       ];
- 
+
       polygonSeries.events.on("datavalidated", function () {
         pointSeries.data.clear();
         for (let i = 0; i < data.length; i++) {
@@ -168,7 +168,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col font-sans bg-[#1a1c1e] text-[#ccc] overflow-x-hidden">
- 
+
       <header className="w-full h-[200px] md:h-[300px] relative border-b border-[#888] overflow-hidden bg-[#0d0d0d]">
         <Image
           src="/header-image.png"
@@ -177,21 +177,20 @@ export default function Home() {
           style={{ objectFit: 'cover', objectPosition: 'center' }}
           priority
         />
-      </header> 
-
+      </header>
 
       <nav className="w-full h-[52px] border-y border-[#888] relative flex items-center bg-[#1a1c1e] z-30">
         <div className="absolute left-1/2 -top-10 md:-top-12 -translate-x-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full border-[3px] border-[#C0C0C0] bg-[#222] overflow-hidden z-20 shadow-[0_0_0_4px_#1a1c1e,0_0_20px_rgba(192,192,192,.3)]">
           <Image src="/logo.png" alt="Logo" fill style={{ objectFit: 'cover' }} />
         </div>
 
-        <div className="grid grid-cols-2 w-full h-full"> 
+        <div className="grid grid-cols-2 w-full h-full">
           <div className="flex items-center justify-end pr-10 md:pr-16 border-r border-[#555]">
             {[
               { name: 'Home', path: '/' },
               { name: 'Projects', path: '/projects' },
               { name: 'Services', path: '/services' }
-            ].map(link => { 
+            ].map(link => {
               const isActive = usePathname() === link.path;
               return (
                 <Link key={link.name} href={link.path}
@@ -202,7 +201,7 @@ export default function Home() {
               );
             })}
           </div>
- 
+
           <div className="flex items-center justify-start pl-10 md:pl-16">
             {[
               { name: 'About', path: '/about' },
@@ -220,10 +219,21 @@ export default function Home() {
           </div>
         </div>
       </nav>
- 
+
       <section className="flex-1 flex flex-col items-center px-4 py-12 gap-8 relative overflow-hidden">
 
-        <div className="w-full text-center z-20">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Image
+            src="/background-image.png"
+            alt="Cosmic Background"
+            fill
+            className="object-cover scale-[1.1] opacity-60"
+            priority
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#1a1c1e_100%)]"></div>
+        </div>
+
+        <div className="w-full text-center z-20 relative">
           <h2 className="text-[14px] tracking-[.3em] uppercase text-[#C0C0C0] font-bold">Global Reach</h2>
           <p className="text-[10px] tracking-widest text-[#666] mt-2">Drag to explore</p>
         </div>
@@ -232,9 +242,25 @@ export default function Home() {
           id="globe-chart"
           className="w-full max-w-6xl h-[550px] md:h-[750px] relative z-10"
         ></div>
+        <div className="relative z-20 pb-12">
+          <Link
+            href="/projects"
+            className="group flex items-center gap-3 px-8 py-4 border border-[#333] hover:border-[#C0C0C0] bg-[#111]/50 hover:bg-[#C0C0C0] text-[#C0C0C0] hover:text-[#000] transition-all duration-500 backdrop-blur-sm"
+          >
+            <span className="text-[11px] tracking-[.3em] uppercase font-bold">Explore Portfolio</span>
+            <svg
+              className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </Link>
+        </div>
 
       </section>
- 
+
     </main>
   );
 }
