@@ -7,27 +7,23 @@ import { Cuboid, Cpu, Activity, Users } from 'lucide-react';
 
 const SERVICES = [
   {
-    id: '01',
-    title: 'CAD Designs',
-    description: 'Specializing in 3D Parts & Buildings. We utilize industry-standard tools including Autodesk Inventor, FreeCAD, and SketchUp to bring your mechanical and architectural concepts to life.',
+    title: 'CAD Design',
+    description: 'Precision 3D modeling for mechanical parts and architectural structures. We transform concepts into production-ready blueprints using Autodesk Inventor, FreeCAD, and SketchUp.',
     icon: Cuboid
   },
   {
-    id: '02',
-    title: 'PCB Designs',
-    description: 'Precision Board Layouts & Schematics. We engineer robust printed circuit boards and microcontroller systems utilizing KiCAD, Proteus, Arduino IDE, and Microchip toolchains.',
+    title: 'PCB Design',
+    description: 'Custom board layouts and schematic engineering. We develop robust printed circuit boards and microcontroller systems using KiCAD, Proteus, and professional toolchains.',
     icon: Cpu
   },
   {
-    id: '03',
     title: 'Circuit Simulation',
-    description: 'Rigorous Performance Testing before production. We validate circuit behavior, logic, and efficiency using advanced simulation environments like PSPICE and LTspice.',
+    description: 'Rigorous pre-production performance testing. We validate circuit behavior, logic, and overall efficiency using advanced simulation environments such as PSPICE and LTspice.',
     icon: Activity
   },
   {
-    id: '04',
     title: 'Community Projects',
-    description: 'Have a vision for a better Kenya? We invite community projects and offer our core CAD, PCB, and Simulation design services completely FREE to help bring your idea to life.',
+    description: 'Empowering local innovation. We offer our core CAD, PCB, and simulation design services pro bono for community-driven initiatives that aim to build a better future.',
     icon: Users
   }
 ];
@@ -90,8 +86,8 @@ export default function Services() {
  
       <section className="flex-1 w-full max-w-5xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {SERVICES.map((service) => (
-            <div key={service.id} className="group relative border border-[#333] hover:border-[#C0C0C0] bg-[#141414] p-8 transition-all duration-500 overflow-hidden cursor-crosshair">
+          {SERVICES.map((service, index) => (
+            <div key={index} className="group relative border border-[#333] hover:border-[#C0C0C0] bg-[#141414] p-8 transition-all duration-500 overflow-hidden cursor-crosshair">
                
               <div className="absolute inset-0 bg-gradient-to-br from-[#C0C0C0]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
  
@@ -99,8 +95,7 @@ export default function Services() {
                 <service.icon 
                   strokeWidth={1.2} 
                   className="w-10 h-10 text-[#666] group-hover:text-[#C0C0C0] transition-colors duration-500" 
-                />
-                <span className="text-[10px] tracking-[.3em] font-mono text-[#444] group-hover:text-[#888] transition-colors">{service.id} //</span>
+                /> 
               </div> 
 
               <div className="relative z-10">
