@@ -86,8 +86,8 @@ export default function Services() {
  
       <section className="flex-1 w-full max-w-5xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {SERVICES.map((service, index) => (
-            <div key={index} className="group relative border border-[#333] hover:border-[#C0C0C0] bg-[#141414] p-8 transition-all duration-500 overflow-hidden cursor-crosshair">
+          {SERVICES.map((service, index) => ( 
+            <div key={index} className="group relative border border-[#333] hover:border-[#C0C0C0] bg-[#141414] p-8 transition-all duration-500 overflow-hidden rounded-lg cursor-crosshair">
                
               <div className="absolute inset-0 bg-gradient-to-br from-[#C0C0C0]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
  
@@ -95,7 +95,7 @@ export default function Services() {
                 <service.icon 
                   strokeWidth={1.2} 
                   className="w-10 h-10 text-[#666] group-hover:text-[#C0C0C0] transition-colors duration-500" 
-                /> 
+                />
               </div> 
 
               <div className="relative z-10">
@@ -104,7 +104,7 @@ export default function Services() {
                   {service.description}
                 </p>
               </div>
- 
+  
               <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#C0C0C0] group-hover:w-full transition-all duration-700 ease-in-out"></div>
             </div>
           ))}

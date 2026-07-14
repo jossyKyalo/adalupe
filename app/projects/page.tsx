@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -47,7 +47,6 @@ const FALLBACK_PROJECTS = [
 
 const CATEGORIES = ['All', 'CAD Design', 'PCB Design', 'Circuit Simulation', 'Community Project'];
 
- 
 const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolean }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -185,8 +184,7 @@ const ProjectCard = ({ project, isAutoPlay }: { project: any, isAutoPlay: boolea
                   {project.description || "Detailed technical specifications, design parameters, and deployment notes for this project will be populated here from the database."}
                 </p>
               </div>
-
-              {/* Action Button */}
+ 
               <a
                 href="/contact"
                 className="mt-auto w-full inline-flex items-center justify-center gap-3 bg-white/5 border border-[#C0C0C0] text-[#C0C0C0] rounded-md hover:bg-[#C0C0C0] hover:text-[#000] p-4 text-[10px] tracking-[.2em] uppercase font-bold transition-all duration-300"
@@ -208,6 +206,7 @@ export default function Projects() {
 
   const [dbProjects, setDbProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {
@@ -232,12 +231,33 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
-
   const activeProjects = dbProjects.length > 0 ? dbProjects : FALLBACK_PROJECTS;
 
   const filteredProjects = filter === 'All'
     ? activeProjects
     : activeProjects.filter(p => p.category === filter);
+ 
+  useEffect(() => {
+    if (filter === 'All' || filteredProjects.length <= 1) return;
+
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const cardWidth = scrollRef.current.children[0]?.clientWidth || 0;
+        const gap = 32;  
+        const scrollAmount = cardWidth + gap;
+
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }
+    }, 2500);  
+
+    return () => clearInterval(interval);
+  }, [filter, filteredProjects.length]);
+
 
   return (
     <main className="min-h-screen flex flex-col font-sans bg-[#1a1c1e] text-[#ccc] overflow-x-hidden">
@@ -317,23 +337,27 @@ export default function Projects() {
               <ProjectCard key={project.id || index} project={project} isAutoPlay={true} />
             ))}
           </div>
-        ) : (
-          <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((project, index) => (
-                <div key={project.id || index} className="w-full md:w-[75%] flex-shrink-0 snap-center">
-                  <ProjectCard project={project} isAutoPlay={false} />
+        ) : ( 
+          <div className="w-full max-w-3xl mx-auto">
+            <div 
+              ref={scrollRef}
+              className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth"
+            >
+              {filteredProjects.length > 0 ? (
+                filteredProjects.map((project, index) => ( 
+                  <div key={project.id || index} className="w-full flex-shrink-0 snap-center">
+                    <ProjectCard project={project} isAutoPlay={true} />
+                  </div>
+                ))
+              ) : (
+                <div className="w-full text-center py-20 text-[#666] text-[11px] tracking-widest uppercase border border-[#333] rounded-lg bg-[#111]">
+                  No projects found in this category.
                 </div>
-              ))
-            ) : (
-              <div className="w-full text-center py-10 text-[#666] text-[11px] tracking-widest uppercase">
-                No projects found in this category.
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       </section>
-
 
     </main>
   );
