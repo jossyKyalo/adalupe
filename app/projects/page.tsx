@@ -262,13 +262,17 @@ export default function Projects() {
   return (
     <main className="min-h-screen flex flex-col font-sans bg-[#1a1c1e] text-[#ccc] overflow-x-hidden">
 
-      <nav className="w-full h-[52px] border-b border-[#888] relative flex items-center bg-[#1a1c1e] z-30 shadow-xl">
-        <div className="absolute left-1/2 -top-2 -translate-x-1/2 w-16 h-16 rounded-full border-[2px] border-[#C0C0C0] bg-[#222] overflow-hidden z-20 shadow-[0_0_15px_rgba(192,192,192,.2)]">
+       <nav className="w-full h-[52px] border-b border-[#888] relative flex items-center bg-[#1a1c1e] z-30 shadow-xl">
+        
+        {/* Floating Center Logo */}
+        <div className="absolute left-1/2 -top-2 -translate-x-1/2 w-16 h-16 rounded-full border-[2px] border-[#C0C0C0] bg-[#222] overflow-hidden z-40 shadow-[0_0_15px_rgba(192,192,192,.2)]">
           <Image src="/logo.png" alt="Logo" fill style={{ objectFit: 'cover' }} />
         </div>
 
         <div className="grid grid-cols-2 w-full h-full">
-          <div className="flex items-center justify-end pr-10 md:pr-16 border-r border-[#555]">
+          
+          {/* Left Side Links */}
+          <div className="flex items-center justify-end pr-[36px] md:pr-16 border-r border-[#555] overflow-hidden">
             {[
               { name: 'Home', path: '/' },
               { name: 'Projects', path: '/projects' },
@@ -277,14 +281,18 @@ export default function Projects() {
               const isActive = pathname === link.path;
               return (
                 <Link key={link.name} href={link.path}
-                  className={`h-full flex items-center px-3 md:px-5 text-[9px] md:text-[11px] tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 ${isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
-                    }`}>
+                  /* Scaled down to px-1.5, text-[8px], and tighter tracking for tiny mobile screens */
+                  className={`h-full flex items-center px-1.5 sm:px-3 md:px-5 text-[8px] md:text-[11px] tracking-widest md:tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] whitespace-nowrap shrink-0 ${
+                    isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
+                  }`}>
                   {link.name}
                 </Link>
               );
             })}
           </div>
-          <div className="flex items-center justify-start pl-10 md:pl-16">
+          
+          {/* Right Side Links */}
+          <div className="flex items-center justify-start pl-[36px] md:pl-16 overflow-hidden">
             {[
               { name: 'About', path: '/about' },
               { name: 'Contact', path: '/contact' }
@@ -292,13 +300,16 @@ export default function Projects() {
               const isActive = pathname === link.path;
               return (
                 <Link key={link.name} href={link.path}
-                  className={`h-full flex items-center px-3 md:px-5 text-[9px] md:text-[11px] tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 ${isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
-                    }`}>
+                  /* Scaled down to match the left side proportions */
+                  className={`h-full flex items-center px-2 sm:px-3 md:px-5 text-[8px] md:text-[11px] tracking-widest md:tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 whitespace-nowrap shrink-0 ${
+                    isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
+                  }`}>
                   {link.name}
                 </Link>
               );
             })}
           </div>
+
         </div>
       </nav>
 

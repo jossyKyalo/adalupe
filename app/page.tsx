@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Home() {
+  // Hook moved to the top level to comply with React rules
+  const pathname = usePathname();
 
   useEffect(() => {
     let root: any = null;
@@ -180,38 +182,43 @@ export default function Home() {
       </header>
 
       <nav className="w-full h-[52px] border-y border-[#888] relative flex items-center bg-[#1a1c1e] z-30">
-        <div className="absolute left-1/2 -top-10 md:-top-12 -translate-x-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full border-[3px] border-[#C0C0C0] bg-[#222] overflow-hidden z-20 shadow-[0_0_0_4px_#1a1c1e,0_0_20px_rgba(192,192,192,.3)]">
+        <div className="absolute left-1/2 -top-10 md:-top-12 -translate-x-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full border-[3px] border-[#C0C0C0] bg-[#222] overflow-hidden z-40 shadow-[0_0_0_4px_#1a1c1e,0_0_20px_rgba(192,192,192,.3)] shrink-0">
           <Image src="/logo.png" alt="Logo" fill style={{ objectFit: 'cover' }} />
         </div>
 
         <div className="grid grid-cols-2 w-full h-full">
-          <div className="flex items-center justify-end pr-10 md:pr-16 border-r border-[#555]">
+          
+          {/* Left Side Links: Padding increased to 56px, enabled horizontal scroll */}
+          <div className="flex items-center justify-end pr-[56px] md:pr-[80px] border-r border-[#555] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[
               { name: 'Home', path: '/' },
               { name: 'Projects', path: '/projects' },
               { name: 'Services', path: '/services' }
             ].map(link => {
-              const isActive = usePathname() === link.path;
+              const isActive = pathname === link.path;
               return (
                 <Link key={link.name} href={link.path}
-                  className={`h-full flex items-center px-3 md:px-5 text-[9px] md:text-[11px] tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 ${isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
-                    }`}>
+                  className={`h-full flex items-center px-2 sm:px-3 md:px-5 text-[8px] md:text-[11px] tracking-widest md:tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] whitespace-nowrap shrink-0 ${
+                    isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
+                  }`}>
                   {link.name}
                 </Link>
               );
             })}
           </div>
 
-          <div className="flex items-center justify-start pl-10 md:pl-16">
+          {/* Right Side Links: Padding increased to 56px, enabled horizontal scroll */}
+          <div className="flex items-center justify-start pl-[56px] md:pl-[80px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[
               { name: 'About', path: '/about' },
               { name: 'Contact', path: '/contact' }
             ].map(link => {
-              const isActive = usePathname() === link.path;
+              const isActive = pathname === link.path;
               return (
                 <Link key={link.name} href={link.path}
-                  className={`h-full flex items-center px-3 md:px-5 text-[9px] md:text-[11px] tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 ${isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
-                    }`}>
+                  className={`h-full flex items-center px-2 sm:px-3 md:px-5 text-[8px] md:text-[11px] tracking-widest md:tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 whitespace-nowrap shrink-0 ${
+                    isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
+                  }`}>
                   {link.name}
                 </Link>
               );
