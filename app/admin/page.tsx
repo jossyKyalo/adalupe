@@ -1,12 +1,28 @@
 'use client';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react'; 
+import { Loader2, Lock } from 'lucide-react'; 
 import { supabase } from '@/lib/supabase'; 
 
-export default function AdminUpload() {
+export default function AdminUpload() { 
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [passcode, setPasscode] = useState('');
+  const [authError, setAuthError] = useState('');
+ 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState('');
+ 
+  const handleAuth = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); 
+    if (passcode === process.env.NEXT_PUBLIC_ADMIN_PASSCODE) {
+      setIsAuthorized(true);
+      setAuthError('');
+    } else {
+      setAuthError('ACCESS DENIED: INVALID AUTHORIZATION CODE');
+      setPasscode('');
+    }
+  };
 
+  // --- Handle Upload ---
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
 
@@ -17,10 +33,10 @@ export default function AdminUpload() {
  
     const formData = new FormData(form);
     const name = formData.get('name') as string;
-    const category = formData.get('category') as string; 
+    const category = formData.get('category') as string;
     const description = formData.get('description') as string;
     const files = formData.getAll('media') as File[];
- 
+
     if (!name || !category || !description || files.length === 0 || files[0].size === 0) {
       setStatus('Error: Incomplete data payload.');
       setIsSubmitting(false);
@@ -54,7 +70,6 @@ export default function AdminUpload() {
 
       setStatus('Files secured. Writing to database...');
  
-       
       const { error: dbError } = await supabase
         .from('projects')
         .insert([{ name, category, description, images: mediaUrls }]); 
@@ -72,16 +87,49 @@ export default function AdminUpload() {
       setIsSubmitting(false);
     }
   };
+ 
+  if (!isAuthorized) {
+    return (
+      <main className="min-h-screen bg-[#111] text-[#ccc] flex items-center justify-center p-4 relative overflow-hidden font-sans">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+        
+        <div className="w-full max-w-sm border border-[#333] bg-[#141414] p-8 shadow-2xl relative z-10 flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full border border-[#333] flex items-center justify-center mb-6 bg-[#0a0a0a]">
+            <Lock className="w-6 h-6 text-[#C0C0C0]" />
+          </div>
+          
+          <h1 className="text-[14px] font-bold tracking-[.3em] uppercase text-[#C0C0C0] mb-2 text-center">Restricted Area</h1>
+          <p className="text-[9px] tracking-widest text-[#666] mb-8 text-center uppercase">System Admin Identification Required</p>
 
+          <form onSubmit={handleAuth} className="w-full space-y-4">
+            <input 
+              type="password" 
+              placeholder="ENTER SECURE CODE" 
+              value={passcode}
+              onChange={(e) => setPasscode(e.target.value)}
+              className="w-full bg-[#0a0a0a] border border-[#333] p-4 text-[13px] text-center text-white focus:border-[#C0C0C0] outline-none transition-colors tracking-[.5em]"
+              autoFocus
+            />
+            
+            {authError && <p className="text-[9px] text-red-500 text-center uppercase tracking-widest animate-pulse">{authError}</p>}
+            
+            <button type="submit" className="w-full bg-[#C0C0C0] text-black hover:bg-white p-4 text-[11px] tracking-[.2em] uppercase font-bold transition-all duration-300">
+              Authenticate
+            </button>
+          </form>
+        </div>
+      </main>
+    );
+  }
+ 
   return (
     <main className="min-h-screen bg-[#111] text-[#ccc] p-10 font-sans flex flex-col items-center justify-center relative overflow-hidden">
-     
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
       
       <div className="w-full max-w-lg border border-[#333] bg-[#141414] p-8 shadow-2xl relative z-10">
         <h1 className="text-2xl font-bold tracking-widest uppercase text-[#C0C0C0] mb-6 border-b border-[#333] pb-4 flex items-center justify-between">
           <span>Admin Control</span>
-          <span className="text-[10px] text-[#00ff00] bg-[#00ff00]/10 px-2 py-1 border border-[#00ff00]/30 animate-pulse">SYSTEM ONLINE</span>
+          <span className="text-[10px] text-[#00ff00] bg-[#00ff00]/10 px-2 py-1 border border-[#00ff00]/30 animate-pulse">AUTH VERIFIED</span>
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -100,7 +148,6 @@ export default function AdminUpload() {
             </select>
           </div>
 
-           
           <div className="flex flex-col">
             <label className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Technical Specifications</label>
             <textarea 
