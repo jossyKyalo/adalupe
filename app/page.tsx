@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-export default function Home() {
-  // Hook moved to the top level to comply with React rules
+export default function Home() { 
   const pathname = usePathname();
 
   useEffect(() => {
@@ -187,8 +186,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-2 w-full h-full">
-          
-          {/* Left Side Links: Padding increased to 56px, enabled horizontal scroll */}
+           
           <div className="flex items-center justify-end pr-[56px] md:pr-[80px] border-r border-[#555] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[
               { name: 'Home', path: '/' },
@@ -206,8 +204,7 @@ export default function Home() {
               );
             })}
           </div>
-
-          {/* Right Side Links: Padding increased to 56px, enabled horizontal scroll */}
+ 
           <div className="flex items-center justify-start pl-[56px] md:pl-[80px] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[
               { name: 'About', path: '/about' },

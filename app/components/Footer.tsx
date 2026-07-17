@@ -80,7 +80,7 @@ export default function Footer() {
  
       <div className="relative flex flex-col justify-center gap-4 p-8 bg-[#141414]">
         <span className="absolute top-4 left-6 text-[60px] leading-none text-[#2a2a2a] font-serif">&ldquo;</span>
-        <p className="text-[15px] italic text-[#888] leading-relaxed relative z-10 font-serif text-center px-4">Bro knows something about everything.</p>
+        <p className="text-[15px] italic text-[#888] leading-relaxed relative z-10 font-serif text-center px-4">~ Good design should not be a luxury reserved for the few. It must be a common good that serves the many.</p>
         <p className="text-[10px] tracking-[.15em] uppercase text-[#555] relative z-10 text-right mt-2">~ Benard Akungu Ogolla<br /></p>
         <span className="absolute bottom-4 right-6 text-[60px] leading-none text-[#2a2a2a] font-serif">&rdquo;</span>
       </div>
