@@ -7,7 +7,7 @@ export default function AdminUpload() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState('');
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
 
     const form = e.currentTarget;
@@ -17,10 +17,11 @@ export default function AdminUpload() {
  
     const formData = new FormData(form);
     const name = formData.get('name') as string;
-    const category = formData.get('category') as string;
+    const category = formData.get('category') as string; 
+    const description = formData.get('description') as string;
     const files = formData.getAll('media') as File[];
-
-    if (!name || !category || files.length === 0 || files[0].size === 0) {
+ 
+    if (!name || !category || !description || files.length === 0 || files[0].size === 0) {
       setStatus('Error: Incomplete data payload.');
       setIsSubmitting(false);
       return;
@@ -53,9 +54,10 @@ export default function AdminUpload() {
 
       setStatus('Files secured. Writing to database...');
  
+       
       const { error: dbError } = await supabase
         .from('projects')
-        .insert([{ name, category, images: mediaUrls }]); 
+        .insert([{ name, category, description, images: mediaUrls }]); 
 
       if (dbError) throw dbError;
 
@@ -96,6 +98,18 @@ export default function AdminUpload() {
               <option value="Circuit Simulation">Circuit Simulation</option>
               <option value="Community Project">Community Project</option>
             </select>
+          </div>
+
+           
+          <div className="flex flex-col">
+            <label className="text-[9px] tracking-widest uppercase text-[#777] mb-2">Technical Specifications</label>
+            <textarea 
+              required 
+              name="description" 
+              rows={4} 
+              placeholder="Enter project details, structural parameters, or design notes..." 
+              className="bg-[#0a0a0a] border border-[#333] p-3 text-[13px] text-white focus:border-[#C0C0C0] outline-none transition-colors resize-none"
+            />
           </div>
 
           <div className="flex flex-col border border-[#333] p-4 bg-[#0a0a0a]">
