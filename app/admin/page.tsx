@@ -21,8 +21,7 @@ export default function AdminUpload() {
       setPasscode('');
     }
   };
-
-  // --- Handle Upload ---
+ 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
 
