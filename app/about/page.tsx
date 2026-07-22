@@ -28,8 +28,7 @@ export default function About() {
             ].map(link => {
               const isActive = pathname === link.path;
               return (
-                <Link key={link.name} href={link.path}
-                  /* Scaled down to px-1.5, text-[8px], and tighter tracking for tiny mobile screens */
+                <Link key={link.name} href={link.path} 
                   className={`h-full flex items-center px-1.5 sm:px-3 md:px-5 text-[8px] md:text-[11px] tracking-widest md:tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] whitespace-nowrap shrink-0 ${
                     isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
                   }`}>
@@ -47,8 +46,7 @@ export default function About() {
             ].map(link => {
               const isActive = pathname === link.path;
               return (
-                <Link key={link.name} href={link.path}
-                  /* Scaled down to match the left side proportions */
+                <Link key={link.name} href={link.path} 
                   className={`h-full flex items-center px-2 sm:px-3 md:px-5 text-[8px] md:text-[11px] tracking-widest md:tracking-[.18em] uppercase transition-all border-r border-[#2a2a2a] last:border-0 whitespace-nowrap shrink-0 ${
                     isActive ? 'text-white bg-white/5 font-bold shadow-[inset_0_-2px_0_#C0C0C0]' : 'text-[#aaa] hover:text-white hover:bg-white/5'
                   }`}>
@@ -70,7 +68,7 @@ export default function About() {
  
       <section className="w-full max-w-6xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-         
+          
           <div className="relative group"> 
             <div className="absolute -inset-4 border border-[#333] group-hover:border-[#555] transition-colors duration-500 z-0 hidden md:block">
        
@@ -86,15 +84,15 @@ export default function About() {
                 style={{ objectFit: 'cover', objectPosition: 'top center' }} 
               />
             </div>
-             
+              
             <div className="absolute -bottom-6 -right-6 md:-right-10 bg-[#0d0d0d] border border-[#888] p-6 z-20 shadow-2xl">
               <p className="text-[14px] tracking-[.2em] uppercase text-[#C0C0C0] font-bold mb-1">Benard A. Ogolla</p>
-              <p className="text-[9px] text-[#777] tracking-widest uppercase">Founder // Mechatronic Engineer</p>
+              <p className="text-[9px] text-[#777] tracking-widest uppercase">Founder | Mechatronic Engineer</p>
             </div>
           </div>
  
           <div className="flex flex-col justify-center">
-            <h2 className="text-[10px] tracking-[.3em] font-mono text-[#888] mb-4">01 // THE ARCHITECT OF SYSTEMS</h2>
+            <h2 className="text-[10px] tracking-[.3em] font-mono text-[#888] mb-4">01 — THE ARCHITECT OF SYSTEMS</h2>
             <h3 className="text-2xl md:text-3xl text-[#ddd] tracking-wider mb-8 leading-snug">
               Bridging the gap between <span className="text-white border-b border-[#C0C0C0]">physical hardware</span> and <span className="text-white border-b border-[#C0C0C0]">digital intelligence</span>.
             </h3>
